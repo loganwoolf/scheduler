@@ -4,7 +4,7 @@ import React from 'react'
 import 'components/InterviewerListItem.scss'
 
 export default function InterviewerListItem(props) {
-  const { id, name, avatar, selected, setInterviewer } = props
+  const { name, avatar, setInterviewer, selected } = props
 
   const classes = classNames({
     'interviewers__item': true,
@@ -12,7 +12,7 @@ export default function InterviewerListItem(props) {
   })
 
   return (
-    <li onClick={() => setInterviewer(id)} className={classes}>
+    <li onClick={setInterviewer} className={classes}>
       <img
         src={avatar}
         alt={name}
