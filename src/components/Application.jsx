@@ -6,29 +6,39 @@ import DayList from './DayList'
 
 import 'components/Application.scss'
 
-import { getAppointmentsForDay } from 'helpers/selectors'
-
+import { getAppointmentsForDay, getInterview } from 'helpers/selectors'
 
 export default function Application(props) {
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
     appointments: {},
+    interviewers: {},
   })
 
+  // console.log("Interviewers::::", state.interviewers)
   const dailyAppointments = getAppointmentsForDay(state, state.day)
+  const schedule = dailyAppointments.map(appt => {
+    const interview = getInterview(state, appt.interview)
+    return <Appointment key={appt.id} {...appt} interview={interview} />
+  })
 
   const setDay = day => {
     setState({ ...state, day })
   }
 
   useEffect(() => {
-    Promise.all([axios.get('/api/days'), axios.get('/api/appointments')])
+    Promise.all([
+      axios.get('/api/days'),
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers'),
+    ])
       .then(all => {
         setState(prev => ({
           ...prev,
           days: all[0].data,
           appointments: all[1].data,
+          interviewers: all[2].data,
         }))
       })
       .catch(err => console.log({ err }))
@@ -53,9 +63,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {dailyAppointments.map(appt => (
-          <Appointment key={appt.id} {...appt} />
-        ))}
+        {schedule}
         <Appointment key={'final'} time={'5pm'} />
       </section>
     </main>
