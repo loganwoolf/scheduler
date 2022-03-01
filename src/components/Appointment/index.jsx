@@ -22,8 +22,14 @@ export default function Appointment(props) {
   const ERROR_SAVE = 'ERROR_SAVE'
   const ERROR_DELETE = 'ERROR_DELETE'
 
-  const { interview, time, interviewers, id, bookInterview, cancelInterview } =
-    props
+  const {
+    interview,
+    time,
+    interviewers,
+    id,
+    bookInterview,
+    cancelInterview,
+  } = props
 
   const initial = interview ? SHOW : EMPTY
   const { mode, transition, back } = useVisualMode(initial)
@@ -54,7 +60,9 @@ export default function Appointment(props) {
   return (
     <article className="appointment">
       <Header time={time} />
-      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === EMPTY && (
+        <Empty onAdd={() => transition(CREATE)} />
+      )}
       {mode === SHOW && (
         <Show
           {...interview}
@@ -64,7 +72,11 @@ export default function Appointment(props) {
         />
       )}
       {mode === CREATE && (
-        <Form interviewers={interviewers} onSave={save} onCancel={back} />
+        <Form
+          interviewers={interviewers}
+          onSave={save}
+          onCancel={back}
+        />
       )}
       {mode === SAVING && <Status message={'Saving...'} />}
       {mode === CONFIRM && (
@@ -84,10 +96,16 @@ export default function Appointment(props) {
         />
       )}
       {mode === ERROR_SAVE && (
-        <Error message={'Unable to save'} onClose={() => transition(SHOW, true)} />
+        <Error
+          message={'Unable to save'}
+          onClose={() => transition(SHOW, true)}
+        />
       )}
       {mode === ERROR_DELETE && (
-        <Error message={'Unable to delete'} onClose={() => transition(SHOW, true)} />
+        <Error
+          message={'Unable to delete'}
+          onClose={() => transition(SHOW, true)}
+        />
       )}
     </article>
   )
