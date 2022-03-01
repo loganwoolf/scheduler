@@ -43,7 +43,7 @@ export default function Appointment(props) {
     transition(SAVING)
     bookInterview(id, interview)
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE))
+      .catch(() => transition(ERROR_SAVE, true))
   }
 
   const remove = id => {
@@ -98,7 +98,7 @@ export default function Appointment(props) {
       {mode === ERROR_SAVE && (
         <Error
           message={'Unable to save'}
-          onClose={() => transition(SHOW, true)}
+          onClose={() => transition(back)}
         />
       )}
       {mode === ERROR_DELETE && (
