@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios'
 
 import Appointment from './Appointment'
@@ -12,13 +12,16 @@ import {
   getInterview,
 } from 'helpers/selectors'
 
+import useApplicationData from 'hooks/useApplicationData'
+
 export default function Application(props) {
-  const [state, setState] = useState({
-    day: 'Monday',
-    days: [],
-    appointments: {},
-    interviewers: {},
-  })
+  const {
+    state,
+    setState,
+    bookInterview,
+    cancelInterview,
+    setDay,
+  } = useApplicationData()
 
   const dailyAppointments = getAppointmentsForDay(
     state,
@@ -28,45 +31,6 @@ export default function Application(props) {
     state,
     state.day
   )
-
-  // state actions
-  const bookInterview = (id, interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview },
-    }
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    }
-
-    return axios
-      .put(`/api/appointments/${id}`, { interview })
-      .then(res => {
-        setState(prev => {
-          return { ...prev, appointments }
-        })
-      })
-  }
-
-  const cancelInterview = id => {
-    const updatedAppointment = {
-      ...state.appointments[id],
-      interview: null,
-    }
-    const updatedAppointments = {
-      ...state.appointments,
-      [id]: updatedAppointment,
-    }
-
-    return axios
-      .delete(`/api/appointments/${id}`)
-      .then(res => {
-        setState(prev => {
-          return { ...prev, updatedAppointments }
-        })
-      })
-  }
 
   const schedule = dailyAppointments.map(appt => {
     const interview = getInterview(state, appt.interview)
@@ -81,10 +45,6 @@ export default function Application(props) {
       />
     )
   })
-
-  const setDay = day => {
-    setState({ ...state, day })
-  }
 
   useEffect(() => {
     Promise.all([
@@ -101,7 +61,7 @@ export default function Application(props) {
         }))
       })
       .catch(err => console.log(err.message))
-  }, [])
+  }, [setState])
 
   return (
     <main className="layout">
