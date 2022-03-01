@@ -17,6 +17,7 @@ export default function Appointment(props) {
   const SHOW = 'SHOW'
   const CREATE = 'CREATE'
   const SAVING = 'SAVING'
+  const DELETING = 'DELETING'
   const CONFIRM = 'CONFIRM'
   const EDIT = 'EDIT'
   const ERROR_SAVE = 'ERROR_SAVE'
@@ -47,10 +48,10 @@ export default function Appointment(props) {
   }
 
   const remove = id => {
-    transition(SAVING)
+    transition(DELETING, true)
     cancelInterview(id)
       .then(() => transition(EMPTY))
-      .catch(() => transition(ERROR_DELETE))
+      .catch(() => transition(ERROR_DELETE, true))
   }
 
   const confirmRemove = id => {
@@ -79,6 +80,7 @@ export default function Appointment(props) {
         />
       )}
       {mode === SAVING && <Status message={'Saving...'} />}
+      {mode === DELETING && <Status message={'Deleting...'} />}
       {mode === CONFIRM && (
         <Confirm
           message={'Are you sure you would like to delete?'}
@@ -104,7 +106,7 @@ export default function Appointment(props) {
       {mode === ERROR_DELETE && (
         <Error
           message={'Unable to delete'}
-          onClose={() => transition(SHOW, true)}
+          onClose={() => transition(back)}
         />
       )}
     </article>
