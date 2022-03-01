@@ -20,8 +20,14 @@ export default function Application(props) {
     interviewers: {},
   })
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day)
-  const dailyInterviewers = getInterviewersForDay(state, state.day)
+  const dailyAppointments = getAppointmentsForDay(
+    state,
+    state.day
+  )
+  const dailyInterviewers = getInterviewersForDay(
+    state,
+    state.day
+  )
 
   // state actions
   const bookInterview = (id, interview) => {
@@ -41,7 +47,6 @@ export default function Application(props) {
           return { ...prev, appointments }
         })
       })
-      .catch(err => console.log(err.message))
   }
 
   const cancelInterview = id => {
@@ -61,7 +66,6 @@ export default function Application(props) {
           return { ...prev, updatedAppointments }
         })
       })
-      .catch(err => console.log(err.message))
   }
 
   const schedule = dailyAppointments.map(appt => {
@@ -109,7 +113,11 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList days={state.days} value={state.day} onChange={setDay} />
+          <DayList
+            days={state.days}
+            value={state.day}
+            onChange={setDay}
+          />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
