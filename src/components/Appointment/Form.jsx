@@ -26,16 +26,16 @@ export default function Form(props) {
 
   const cancel = () => {
     reset()
+    setError('')
     onCancel()
   }
 
   const validate = (student, interviewer) => {
-    // eslint-disable-next-line no-restricted-globals
     if (student === '') {
       setError('Student name cannot be blank')
       return
     }
-
+    setError('')
     onSave(student, interviewer)
   }
 
