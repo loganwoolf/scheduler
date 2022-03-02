@@ -14,6 +14,8 @@ export default function Form(props) {
   const [studentName, setStudentName] = useState(
     student || ''
   )
+  const [error, setError] = useState('')
+
   const [currentInterviewer, setCurrentInterviewer] =
     useState(interviewer || null)
 
@@ -25,6 +27,16 @@ export default function Form(props) {
   const cancel = () => {
     reset()
     onCancel()
+  }
+
+  const validate = (student, interviewer) => {
+    // eslint-disable-next-line no-restricted-globals
+    if (student === '') {
+      setError('Student name cannot be blank')
+      return
+    }
+
+    onSave(student, interviewer)
   }
 
   return (
@@ -41,8 +53,12 @@ export default function Form(props) {
             placeholder="Enter Student Name"
             value={studentName}
             onChange={e => setStudentName(e.target.value)}
+            data-testid="student-name-input"
           />
         </form>
+        <section className="appointment__validation">
+          {error}
+        </section>
         <InterviewerList
           interviewers={interviewers}
           value={currentInterviewer}
@@ -57,7 +73,7 @@ export default function Form(props) {
           <Button
             confirm
             onClick={() =>
-              onSave(studentName, currentInterviewer)
+              validate(studentName, currentInterviewer)
             }
           >
             Save
