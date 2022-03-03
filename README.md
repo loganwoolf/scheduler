@@ -1,23 +1,41 @@
 # Interview Scheduler
 
+This project is a React Interview Scheduler. Use this as a frontend to create, delete, 
+and edit interview appointments in our powerful backend "scheduler-api"!
+
 ## Setup
 
-Install dependencies with `npm install`.
+Clone from github
+```
+git clone git@github.com:loganwoolf/scheduler.git
+
+# --or, if you can't use SSH--
+
+git clone https://github.com/loganwoolf/scheduler.git
+```
+
+Install dependencies 
+```
+npm install
+```
 
 ## Running Webpack Development Server
 
-```sh
+```
 npm start
 ```
+Make sure the backend server and database are running,
+then visit `http://localhost:8000` in your browser
 
 ## Running Jest Test Framework
 
-```sh
+```
 npm test
 ```
 
 ## Running Storybook Visual Testbed
 
-```sh
+```
 npm run storybook
 ```
+then visit `http://localhost:9009` in your browser
