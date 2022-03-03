@@ -2,6 +2,10 @@
 
 This project is a React Interview Scheduler. Use this as a frontend to create, delete, 
 and edit interview appointments in our powerful backend "scheduler-api"!
+Components were built and unit tested in a Storybook sandbox. Further unit and
+integration tests were done using the Jest library. Finally, acceptance (end-to-end) 
+testing was done with the amazing Cypress framework. The easy to use Axios package is 
+used to communicate with the backend.
 
 ## Screens
 
