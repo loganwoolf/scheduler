@@ -19,10 +19,11 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     }
+    const days = updateSpots(id, appointments)
+
     return axios
       .put(`/api/appointments/${id}`, { interview })
-      .then(res => {
-        const days = updateSpots(id, false)
+      .then(() => {
         setState(prev => {
           return { ...prev, appointments, days }
         })
@@ -38,22 +39,28 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     }
+    const days = updateSpots(id, appointments)
 
     return axios
       .delete(`/api/appointments/${id}`)
-      .then(res => {
+      .then(() => {
         setState(prev => {
-          const days = updateSpots(id)
           return { ...prev, appointments, days }
         })
       })
   }
 
-  const updateSpots = (id, increment = true) => {
+  const updateSpots = (id, appointments) => {
     const day = state.days.filter(day =>
       day.appointments.includes(id)
     )[0]
-    increment ? (day.spots += 1) : (day.spots -= 1)
+
+    day.spots = day.appointments.reduce((acc, apptID) => {
+      if (!appointments[apptID].interview) {
+        acc += 1
+      }
+      return acc
+    }, 0)
 
     const days = [...state.days]
     const dayIndex = day.id - 1
