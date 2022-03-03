@@ -1,27 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-import useVisualMode from 'hooks/useVisualMode'
+import useVisualMode from 'hooks/useVisualMode';
 
-import 'components/Appointment/style.scss'
+import 'components/Appointment/style.scss';
 
-import Header from './Header'
-import Show from './Show'
-import Empty from './Empty'
-import Form from './Form'
-import Status from './Status'
-import Confirm from './Confirm'
-import Error from './Error'
+import Header from './Header';
+import Show from './Show';
+import Empty from './Empty';
+import Form from './Form';
+import Status from './Status';
+import Confirm from './Confirm';
+import Error from './Error';
 
 export default function Appointment(props) {
-  const EMPTY = 'EMPTY'
-  const SHOW = 'SHOW'
-  const CREATE = 'CREATE'
-  const SAVING = 'SAVING'
-  const DELETING = 'DELETING'
-  const CONFIRM = 'CONFIRM'
-  const EDIT = 'EDIT'
-  const ERROR_SAVE = 'ERROR_SAVE'
-  const ERROR_DELETE = 'ERROR_DELETE'
+  const EMPTY = 'EMPTY';
+  const SHOW = 'SHOW';
+  const CREATE = 'CREATE';
+  const SAVING = 'SAVING';
+  const DELETING = 'DELETING';
+  const CONFIRM = 'CONFIRM';
+  const EDIT = 'EDIT';
+  const ERROR_SAVE = 'ERROR_SAVE';
+  const ERROR_DELETE = 'ERROR_DELETE';
 
   const {
     interview,
@@ -30,33 +30,33 @@ export default function Appointment(props) {
     id,
     bookInterview,
     cancelInterview,
-  } = props
+  } = props;
 
-  const initial = interview ? SHOW : EMPTY
-  const { mode, transition, back } = useVisualMode(initial)
+  const initial = interview ? SHOW : EMPTY;
+  const { mode, transition, back } = useVisualMode(initial);
 
   const save = (name, interviewer) => {
     const interview = {
       student: name,
       interviewer,
-    }
+    };
 
-    transition(SAVING)
+    transition(SAVING);
     bookInterview(id, interview)
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE, true))
-  }
+      .catch(() => transition(ERROR_SAVE, true));
+  };
 
   const remove = id => {
-    transition(DELETING, true)
+    transition(DELETING, true);
     cancelInterview(id)
       .then(() => transition(EMPTY))
-      .catch(() => transition(ERROR_DELETE, true))
-  }
+      .catch(() => transition(ERROR_DELETE, true));
+  };
 
   const confirmRemove = id => {
-    transition(CONFIRM)
-  }
+    transition(CONFIRM);
+  };
 
   return (
     <article className="appointment">
@@ -80,7 +80,9 @@ export default function Appointment(props) {
         />
       )}
       {mode === SAVING && <Status message={'Saving...'} />}
-      {mode === DELETING && <Status message={'Deleting...'} />}
+      {mode === DELETING && (
+        <Status message={'Deleting...'} />
+      )}
       {mode === CONFIRM && (
         <Confirm
           message={'Are you sure you would like to delete?'}
@@ -110,5 +112,5 @@ export default function Appointment(props) {
         />
       )}
     </article>
-  )
+  );
 }
