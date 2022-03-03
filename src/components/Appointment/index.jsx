@@ -68,7 +68,6 @@ export default function Appointment(props) {
         <Show
           {...interview}
           onEdit={() => transition(EDIT)}
-          // onDelete={() => remove(id)}
           onDelete={() => confirmRemove()}
         />
       )}
