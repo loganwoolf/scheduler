@@ -1,12 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import InterviewerListItem from './InterviewerListItem'
+import InterviewerListItem from './InterviewerListItem';
 
-import 'components/InterviewerList.scss'
+import 'components/InterviewerList.scss';
 
 function InterviewerList(props) {
-  const { interviewers, value, onChange } = props
+  const { interviewers, value, onChange } = props;
 
   const list = interviewers.map(person => (
     <InterviewerListItem
@@ -16,7 +16,7 @@ function InterviewerList(props) {
       setInterviewer={() => onChange(person.id)}
       selected={value === person.id}
     />
-  ))
+  ));
 
   return (
     <section className="interviewers">
@@ -25,11 +25,11 @@ function InterviewerList(props) {
       </h4>
       <ul className="interviewers__list">{list}</ul>
     </section>
-  )
+  );
 }
 
 InterviewerList.propTypes = {
   interviewers: PropTypes.array.isRequired,
-}
+};
 
-export default InterviewerList
+export default InterviewerList;
