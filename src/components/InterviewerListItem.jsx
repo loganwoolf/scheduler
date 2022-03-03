@@ -1,15 +1,15 @@
-import classNames from 'classnames'
-import React from 'react'
+import classNames from 'classnames';
+import React from 'react';
 
-import 'components/InterviewerListItem.scss'
+import 'components/InterviewerListItem.scss';
 
 export default function InterviewerListItem(props) {
-  const { name, avatar, setInterviewer, selected } = props
+  const { name, avatar, setInterviewer, selected } = props;
 
   const classes = classNames({
     interviewers__item: true,
     'interviewers__item--selected': selected,
-  })
+  });
 
   return (
     <li onClick={setInterviewer} className={classes}>
@@ -20,5 +20,5 @@ export default function InterviewerListItem(props) {
       />
       {selected && name}
     </li>
-  )
+  );
 }

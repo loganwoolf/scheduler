@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
-import Appointment from './Appointment'
-import DayList from './DayList'
+import Appointment from './Appointment';
+import DayList from './DayList';
 
-import 'components/Application.scss'
+import 'components/Application.scss';
 
 import {
   getAppointmentsForDay,
   getInterviewersForDay,
   getInterview,
-} from 'helpers/selectors'
+} from 'helpers/selectors';
 
-import useApplicationData from 'hooks/useApplicationData'
+import useApplicationData from 'hooks/useApplicationData';
 
 export default function Application(props) {
   const {
@@ -21,19 +21,19 @@ export default function Application(props) {
     bookInterview,
     cancelInterview,
     setDay,
-  } = useApplicationData()
+  } = useApplicationData();
 
   const dailyAppointments = getAppointmentsForDay(
     state,
     state.day
-  )
+  );
   const dailyInterviewers = getInterviewersForDay(
     state,
     state.day
-  )
+  );
 
   const schedule = dailyAppointments.map(appt => {
-    const interview = getInterview(state, appt.interview)
+    const interview = getInterview(state, appt.interview);
     return (
       <Appointment
         key={appt.id}
@@ -43,8 +43,8 @@ export default function Application(props) {
         bookInterview={bookInterview}
         cancelInterview={cancelInterview}
       />
-    )
-  })
+    );
+  });
 
   useEffect(() => {
     Promise.all([
@@ -58,10 +58,10 @@ export default function Application(props) {
           days: all[0].data,
           appointments: all[1].data,
           interviewers: all[2].data,
-        }))
+        }));
       })
-      .catch(err => console.log(err.message))
-  }, [setState])
+      .catch(err => console.log(err.message));
+  }, [setState]);
 
   return (
     <main className="layout">
@@ -90,5 +90,5 @@ export default function Application(props) {
         <Appointment key={'final'} time={'5pm'} />
       </section>
     </main>
-  )
+  );
 }
