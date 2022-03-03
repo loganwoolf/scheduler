@@ -27,4 +27,15 @@ describe('Appointments', () => {
     cy.contains('.appointment__card--show', 'Tori Malcolm')
     cy.contains('.appointment__card--show', 'Major Tom')
   })
+
+  it('should cancel an interview', () => {
+    cy.get('[alt=Delete]').click({ force: true })
+    cy.contains('Confirm').click()
+    cy.contains(/delet/i).should('exist')
+    cy.contains(/delet/i).should('not.exist')
+    cy.contains(
+      '.appointment__card--show',
+      /archie cohen/i
+    ).should('not.exist')
+  })
 })
