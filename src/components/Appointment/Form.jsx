@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import InterviewerList from 'components/InterviewerList'
-import Button from 'components/Button'
+import React, { useState } from 'react';
+import InterviewerList from 'components/InterviewerList';
+import Button from 'components/Button';
 
 export default function Form(props) {
   const {
@@ -9,35 +9,35 @@ export default function Form(props) {
     interviewer,
     onSave,
     onCancel,
-  } = props
+  } = props;
 
   const [studentName, setStudentName] = useState(
     student || ''
-  )
-  const [error, setError] = useState('')
+  );
+  const [error, setError] = useState('');
 
   const [currentInterviewer, setCurrentInterviewer] =
-    useState(interviewer || null)
+    useState(interviewer || null);
 
   const reset = () => {
-    setStudentName('')
-    setCurrentInterviewer('')
-  }
+    setStudentName('');
+    setCurrentInterviewer('');
+  };
 
   const cancel = () => {
-    reset()
-    setError('')
-    onCancel()
-  }
+    reset();
+    setError('');
+    onCancel();
+  };
 
   const validate = (student, interviewer) => {
     if (!student || !interviewer) {
       setError('Name and interviewer are required')
       return
     }
-    setError('')
-    onSave(student, interviewer)
-  }
+    setError('');
+    onSave(student, interviewer);
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -81,5 +81,5 @@ export default function Form(props) {
         </section>
       </section>
     </main>
-  )
+  );
 }

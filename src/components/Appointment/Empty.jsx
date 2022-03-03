@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 export default function Empty(props) {
-  const { onAdd } = props
+  const { onAdd } = props;
 
   return (
     <main className="appointment__add">
@@ -12,5 +12,5 @@ export default function Empty(props) {
         onClick={onAdd}
       />
     </main>
-  )
+  );
 }
