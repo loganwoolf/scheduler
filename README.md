@@ -3,6 +3,20 @@
 This project is a React Interview Scheduler. Use this as a frontend to create, delete, 
 and edit interview appointments in our powerful backend "scheduler-api"!
 
+## Screens
+
+Inspecting an appointment
+!["Inspect"](https://github.com/loganwoolf/scheduler/blob/master/docs/add.png?raw=true)
+
+Adding/editing an appointment
+!["Add"](https://github.com/loganwoolf/scheduler/blob/master/docs/delete.png?raw=true)
+
+Saving changes
+!["Save"](https://github.com/loganwoolf/scheduler/blob/master/docs/save.png?raw=true)
+
+Confirming appointment removal
+!["Delete"](https://github.com/loganwoolf/scheduler/blob/master/docs/delete.png?raw=true)
+
 ## Setup
 
 Clone from github
