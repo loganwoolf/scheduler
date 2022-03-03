@@ -19,4 +19,12 @@ describe('Appointments', () => {
     )
   })
 
+  it('should edit an interview', () => {
+    cy.get('[alt=Edit]').click({ force: true })
+    cy.get('[alt="Tori Malcolm"]').click()
+    cy.get('[type=text]').clear().type('Major Tom')
+    cy.contains('Save').click()
+    cy.contains('.appointment__card--show', 'Tori Malcolm')
+    cy.contains('.appointment__card--show', 'Major Tom')
+  })
 })
